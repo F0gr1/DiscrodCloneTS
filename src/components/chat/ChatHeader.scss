@@ -1,0 +1,37 @@
+.ChatHeader{
+	 display: flex;
+	 align-items: center;
+	 justify-content: space-between;
+	 width: 100%;
+	 padding-top: 10px;
+
+	 .chatHeaderLeft{
+		padding-left: 20px;
+		.chatHeaderHash{
+			color:gray;
+			padding-right: 7px;
+		}
+		h3{
+			color:white;
+		}
+	 }
+	 .chatHeaderRight{
+		padding-left: 15px;
+		display: flex;
+		align-items: center;
+		gap:13px;
+		color:gray;
+		
+		.chatHeaderSearch{
+			display: flex;
+			align-items: center;
+			background-color: #40404a;
+			padding: 3px;
+			border-radius: 3px;
+
+			input{
+				background:transparent;
+			}
+		}
+	 }
+}
