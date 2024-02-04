@@ -4,4 +4,41 @@
 	flex-grow: 1;
 	background-color: #33363d; //todo homeに移動
 	
+	.chatMessage{
+		flex-grow: 1;
+	}
+
+	.chatInput{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 15px;
+		background-color: #474b53;
+		border-radius: 5px;
+		margin:20px;
+		color: lightgray;
+
+		form{
+			flex-grow: 1;
+			input{
+				padding: 15px;
+				background:transparent;
+				border:none;
+				outline: none;
+				color:white;
+				font-size:1.5rem;
+				line-height: 2%;
+				width: 100%;
+			}
+			
+			.chatInputButton{
+				display: none;
+			}
+		}
+		.chatInputIcons{
+			.MuiSvgIcon-root{
+				padding: 0 4px;
+			}
+		}
+	}
 }
