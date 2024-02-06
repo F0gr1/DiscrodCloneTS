@@ -13,6 +13,10 @@ const Chat = () => {
 			<ChatHeader/>
 			<div className="chatMessage">
 				<ChatMessage/>
+				<ChatMessage/>
+				<ChatMessage/>
+				<ChatMessage/>
+				<ChatMessage/>
 			</div>
 			<div className="chatInput">
 				<AddCircleOutlineIcon/>

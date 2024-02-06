@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect , useState } from 'react'
 import './Sidebar.scss'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
@@ -6,8 +6,34 @@ import SidebarChannel from './SidebarChannel';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import { auth, db } from '../../firebase';
+import { useAppSelector } from '../../app/hooks';
+import { onSnapshot , query , collection, DocumentData} from 'firebase/firestore';
+import { channel } from 'diagnostics_channel';
+
+interface Channel{
+	id: string,
+	channel: DocumentData;
+}
 
 const Sidebar = () => {
+	const [channels , setChannels] = useState<Channel[]>([]);
+	const user = useAppSelector((state) => state.user);
+
+	const q = query(collection(db , "channels"))
+	useEffect(()=>{
+		onSnapshot(q , (querySnapshot) =>{
+			const channelsResults : Channel[] = [];
+			querySnapshot.docs.forEach((doc)=>
+				channelsResults.push({
+					id: doc.id,
+					channel: doc.data(),
+				})
+			)
+			setChannels(channelsResults);
+		})
+	},[])
+	
 	return (
 		<div className='sidebar'>
 			{/* sidebarLeft */}
@@ -38,22 +64,18 @@ const Sidebar = () => {
 					</div>
 
 					<div className="sidebarChannelList">
-							<SidebarChannel />
-							<SidebarChannel />
-							<SidebarChannel />
-							<SidebarChannel />
-							<SidebarChannel />
-							<SidebarChannel />
-							<SidebarChannel />
-							<SidebarChannel />
-					</div>
+					{channels.map((channel) => (
+						<SidebarChannel channel={channel}  key={channel.id}/>
+					))}
+
+						</div>
 
 					<div className="sidebarFooter">
 						<div className="sidebarAccount">
-							<img src='./user.png' alt='' />
+							<img src={user?.photo} alt='' onClick={() => auth.signOut()}/>
 							<div className="accountName">
-								<h4>Satoshi</h4>
-								<span>#8888</span>
+								<h4>{user?.displayName}</h4>
+								<span>#{user?.uid.substring(0 , 4)}</span>
 							</div>
 						</div>
 						<div className="sidebarVoice">
